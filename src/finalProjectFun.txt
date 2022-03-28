@@ -1,0 +1,99 @@
+get_Flights_by_parameters
+{
+begin
+RETURN QUERY
+SELECT *
+FROM public."Flights"
+where "Origin_Country_Id"=Origin_Country_Id2 and "Destination_Country_Id"=Destination_Country_Id2 and "Departure_Time"=Departure_Time2;
+end;
+}
+
+get_airline_by_username
+{
+begin
+RETURN QUERY
+SELECT "Airline_Companies"."Id","Airline_Companies"."Name","Airline_Companies"."Country_Id","Airline_Companies"."User_Id" FROM "Airline_Companies"
+INNER JOIN "Users"
+on "Airline_Companies"."User_Id" = "Users"."Id"
+where "Users"."UserName"=UserName1;
+end;
+}
+
+
+get_arrival_flights
+{
+
+begin
+RETURN QUERY
+SELECT * FROM "Flights"
+where "Landing_Time"  < (NOW():: timestamp + INTERVAL '12 hours');
+end;
+
+}
+
+
+get_customers_by_username
+{
+
+BEGIN
+RETURN QUERY
+select "Customers"."Id","Customers"."First_Name","Customers"."Last_Name","Customers"."Address","Customers"."Phone_No","Customers"."Credit_Card_No","Customers"."User_Id" FROM "Customers"
+inner join "Users"
+on "Customers"."User_Id"= "Users"."Id"
+where "Users"."UserName"=userName1;
+End
+
+}
+
+get_departure_flights
+{
+
+begin
+RETURN QUERY
+SELECT * FROM "Flights"
+where "Departure_Time"  < (NOW():: timestamp + INTERVAL '12 hours');
+end;
+
+}
+
+get_flights_by_airline_id
+{
+
+begin
+RETURN QUERY
+SELECT "Flights"."Id", "Flights"."Airline_Company_Id",
+"Flights"."Origin_Country_Id", "Flights"."Destination_Country_Id", 
+"Flights"."Departure_Time", "Flights"."Landing_Time", 
+"Flights"."Remaining_Tickets"
+FROM public."Flights"
+INNER JOIN "Airline_Companies"
+ON "Airline_Companies"."Id"= "Flights"."Airline_Company_Id"
+where "Airline_Companies"."Id"=airlineId;
+end;
+
+}
+
+
+get_tickets_by_customer
+{
+
+begin
+RETURN QUERY 
+select "Tickets"."Id", "Tickets"."Flight_Id", "Tickets"."Customer_Id" from "Tickets"
+inner join "Users"
+on "Tickets"."Customer_Id"= "Users"."Id"
+where "Users"."Id"=id11;
+end;
+
+}
+
+get_user_by_username
+{
+
+begin
+RETURN QUERY
+SELECT * FROM "Users"
+WHERE "UserName"=UserName1;
+end;
+
+}
